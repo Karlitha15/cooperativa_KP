@@ -1,0 +1,183 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="cooperativa_KP.SiteMaster" %>
+
+<!DOCTYPE html>
+<html lang="es">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Cooperativa Magisterio de Pichincha </title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <style>
+        .navbar-custom {
+            background-color: transparent; /* Transparente */
+            border: none; /* Sin borde */
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: #000; /* Color del texto negro */
+            text-transform: uppercase; /* Letras en mayúsculas */
+        }
+        .navbar-custom .nav-link:hover {
+            color: #fff; /* Color del texto al pasar el ratón */
+            background-color: rgba(255, 165, 0, 0.8); /* Fondo naranja bonito con transparencia */
+            border-radius: 5px; /* Esquinas redondeadas */
+            padding: 5px 10px; /* Espaciado interno */
+            transition: background-color 0.3s ease; /* Suaviza la transición */
+        }
+    </style>
+</head>
+        <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: url('https://static.vecteezy.com/system/resources/previews/014/960/352/non_2x/red-background-red-yellow-wallpaper-hd-stocks-images-download-free-free-photo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        .carousel-item img {
+            height: 400px; 
+            object-fit: cover;
+        }
+        .carousel-background {
+            background: url('https://img.freepik.com/vector-premium/fondo-abstracto-compuesto-mezcla-colores-degradados-amarillo-anaranjado-rojo-claro-oscuro-banners-adecuados-vector_737078-269.jpg') no-repeat center center; 
+            background-size: cover;
+            position: relative;
+        }
+        .carousel-background::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); 
+            z-index: 1;
+        }
+        .carousel-inner {
+            position: relative;
+            z-index: 2;
+        }
+        .product-card {
+            background: white;
+            color: black;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+        .product-card img {
+            width: 100%;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        .product-card img:hover {
+            transform: scale(1.05);
+        }
+        .product-card h5 {
+            margin-top: 15px;
+        }
+        .product-card .price {
+            color: red;
+            font-weight: bold;
+        }
+        .product-card .original-price {
+            text-decoration: line-through;
+            color: grey;
+        }
+        .product-card .add-to-cart {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .social-icons a {
+            color: white;
+            margin: 0 10px;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+        .social-icons a:hover {
+            color: #ff0000;
+        }
+        .card-text{
+            color: black;
+        }
+        .card-title{
+            color:black
+        }
+    </style>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-custom">
+            <div class="container">
+                <a class="navbar-brand" runat="server" href="~/">
+                    <img class="img-fluid w-100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuN7gXCn5bwi6t7uJ_KfDoLIC1qnYfpVnkNg&s" alt="" style="height: 60px;" />
+                </a>
+                <a class="navbar-brand" runat="server" href="~/">COAC MAGISTERIO DE PICHINCHA</a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar navegación" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/">INICIO</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Regístrate">REGÍSTRATE</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Contáctanos">CONTÁCTANOS</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Inicio_de_Sesion">INGRESAR</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+           
+        </div>
+    </form>
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/Scripts/bootstrap.js") %>
+    </asp:PlaceHolder>
+</body>
+</html>
