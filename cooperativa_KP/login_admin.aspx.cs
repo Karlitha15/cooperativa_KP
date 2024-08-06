@@ -10,12 +10,11 @@ using System.Web.UI.WebControls;
 
 namespace cooperativa_KP
 {
-    public partial class login_user : System.Web.UI.Page
+    public partial class login_admin : System.Web.UI.Page
     {
         public Cliente c;
         private string pass = "";
         private SqlConnection conexion = new SqlConnection("Server=localhost;Database=banco;Integrated Security=True;");
-
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -25,10 +24,11 @@ namespace cooperativa_KP
         {
             try
             {
-                if (c == null) {
+                if (c == null)
+                {
 
                     c = new Cliente();
-                    
+
                     c.UserName = this.txusuario.Text;
                     c.Password = this.txpassword.Text;
 
@@ -40,12 +40,12 @@ namespace cooperativa_KP
                     if (reader.Read())
                     {
 
-                        pass = reader.GetString(1);
+                        pass = reader.GetString(2);
                         c.Id = reader.GetInt32(0);
                     }
                     reader.Close();
 
-                    
+
 
                     if (c.Password == pass)
                     {
@@ -63,19 +63,23 @@ namespace cooperativa_KP
                             c.Direccion = reader2.GetString(4);
                         }
                         conexion.Close();
-                        Response.Redirect("vista_user.aspx"); 
+                        if(c.UserName == "karlaadmin")
+                        {
+                            Response.Redirect("vista_admin.aspx");
+                        }
+                        
                     }
-                    
+
 
 
                 }
-                
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
         }
-
     }
+
 }

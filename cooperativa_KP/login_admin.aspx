@@ -1,9 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="login_user.aspx.cs" Inherits="cooperativa_KP.login_user" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="login_admin.aspx.cs" Inherits="cooperativa_KP.login_admin" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="container-fluid d-flex justify-content-center">
+        <div class="container-fluid d-flex justify-content-center">
         <div class="container w-50">
-            <h1 class="h1">Inicio de sesión de clientes</h1>
+            <h1 class="h1">Inicio de sesión de administrador</h1>
             <div class="row">
                 <asp:Label ID="Label1" runat="server" Text="Usuario"></asp:Label>
                 <br />

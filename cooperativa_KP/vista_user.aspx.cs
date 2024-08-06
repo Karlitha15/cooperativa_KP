@@ -1,4 +1,5 @@
-﻿using System;
+﻿using cooperativa_KP.Clases;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,17 @@ namespace cooperativa_KP
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack) {
+                Cliente cliente = (Cliente)Session["Usuario"];
+                if ( cliente != null && cliente.Id != 0)
+                {
+                    lbid.Text = $"Código: {cliente.Id}";
+                    lbnombre.Text = $"Nombre: {cliente.NombreCompleto}";
+                    lbemail.Text = $"Email: {cliente.Email}";
+                    lbdir.Text = $"Dirección: {cliente.Direccion}";
+                    lbtelefono.Text = $"Teléfono: {cliente.Telefono}";
+                }
+            }
         }
     }
 }

@@ -33,30 +33,30 @@
                 <div class="form-group">
                     <asp:Label ID="Lbl_nom" runat="server" Text="Nombre:"></asp:Label>
                     <br />
-                    <asp:TextBox ID="Text_nom" runat="server" Height="31px" Width="1071px"></asp:TextBox>
+                    <asp:TextBox ID="Text_nom" runat="server" Height="31px" Width="1071px" CssClass="form-control"></asp:TextBox>
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Lbl_correo" runat="server" Text="Email: "></asp:Label>
                     <br />
-                    <asp:TextBox ID="Text_correo" runat="server" Height="31px" Width="1071px"></asp:TextBox>
+                    <asp:TextBox ID="Text_correo" runat="server" Height="31px" Width="1071px" CssClass="form-control"></asp:TextBox>
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Lbl_tlf" runat="server" Text="Teléfono: "></asp:Label>
                     <br />
-                    <asp:TextBox ID="Text_tlf" runat="server" Height="31px" Width="1071px"></asp:TextBox>
+                    <asp:TextBox ID="Text_tlf" runat="server" Height="31px" Width="1071px" CssClass="form-control"></asp:TextBox>
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Lbl_dir" runat="server" Text="Dirección: "></asp:Label>
                     <br />
-                    <asp:TextBox ID="Text_dir" runat="server" Height="31px" Width="1071px"></asp:TextBox>
+                    <asp:TextBox ID="Text_dir" runat="server" Height="31px" Width="1071px" CssClass="form-control"></asp:TextBox>
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Lbl_mens" runat="server" Text="Mensaje: "></asp:Label>
                     <br />
-                    <asp:TextBox ID="Text_mens" runat="server" Height="96px" Width="1071px"></asp:TextBox>
+                    <asp:TextBox ID="Text_mens" runat="server" Height="96px" Width="1071px" CssClass="form-control"></asp:TextBox>
                 </div>
                
-                <button type="submit" class="btn-submit">Enviar</button>
+                <asp:Button ID="Button1" runat="server" Text="Enviar" CssClass="btn btn-success" OnClick="Button1_Click"/>
             </form>
         </section>
         </div>
