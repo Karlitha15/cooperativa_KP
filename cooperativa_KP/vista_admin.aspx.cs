@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Odbc;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -13,7 +14,7 @@ namespace cooperativa_KP
     public partial class vista_admin : System.Web.UI.Page
     {
         private SqlConnection conexion = new SqlConnection("Server=localhost;Database=banco;Integrated Security=True;");
-        private List<object> list = new List<object>();
+        private static List<object> list = new List<object>();
         protected void Page_Load(object sender, EventArgs e)
         {
             Cliente u = (Cliente)Session["Usuario"];
@@ -42,6 +43,7 @@ namespace cooperativa_KP
 
         private void listar_mensajes()
         {
+            list.Clear();
             conexion.Open();
             SqlCommand comando = new SqlCommand("sp_ListarMensajes", conexion);
             comando.CommandType = CommandType.StoredProcedure;
@@ -66,14 +68,14 @@ namespace cooperativa_KP
 
         private void listar_clientes()
         {
+            list.Clear();
             conexion.Open();
             SqlCommand comando = new SqlCommand("sp_ListarClientes", conexion);
             comando.CommandType = CommandType.StoredProcedure;
             var reader = comando.ExecuteReader();
             while (reader.Read())
             {
-                
-                list.Add(new Cliente(
+                Cliente c = new Cliente(
                     reader.GetInt32(0),
                     reader.GetString(1),
                     reader.GetString(2),
@@ -81,7 +83,8 @@ namespace cooperativa_KP
                     reader.GetString(4),
                     reader.GetString(6),
                     reader.GetString(7)
-                    ));
+                    );
+                list.Add(c);
             }
             conexion.Close();
 
@@ -110,22 +113,25 @@ namespace cooperativa_KP
         private void listar_cuentas()
         {
             list.Clear();
-            tabla.DataBind();
-            tabla.DataSource = Cuenta.LeerCuentas();
+            this.tabla.DataSource = null;
+            this.tabla.DataBind();
+            var lista = Cuenta.LeerCuentas();
+            foreach(Cuenta c in lista){
+                list.Add(c);
+            }
+            tabla.DataSource = list;
             tabla.DataBind();
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            list.Clear();
             this.tabla.DataSource = null;
             this.tabla.DataBind();
             listar_mensajes();
         }
 
         protected void Button2_Click(object sender, EventArgs e)
-        {
-            list.Clear();   
+        {  
             this.tabla.DataSource = null;
             this.tabla.DataBind();
             listar_clientes();
@@ -168,28 +174,77 @@ namespace cooperativa_KP
             {
                 int id = Convert.ToInt32(e.CommandArgument);
                 // Código para eliminar la fila con ID = id
-                foreach (var obj in list)
+                if(list.Count != 0)
                 {
-                    Type objType = obj.GetType();
-                    if (objType == typeof(Cliente))
+                    
+                    var item = list[0].GetType();
+                    if (item == typeof(Cliente))
                     {
-                        Response.Write("Es un objeto de la clase Cliente");
-                    }
-                    else if (objType == typeof(Mensaje))
+                        eliminarCliente(id);
+                        listar_clientes();
+                    }else if(item == typeof(Mensaje))
                     {
-                        Response.Write("Es un objeto de la clase Mensaje");
-                    }
-                    else if (objType == typeof(Cuenta))
+                        eliminarMensaje(id);
+                        listar_mensajes();
+                    }else if(item == typeof(Cuenta))
                     {
-                        Response.Write("Es un objeto de la clase Cuenta");
+                        eliminarCuenta(id);
+                        listar_cuentas();
                     }
                     else
                     {
-                        Response.Write("Es un objeto de otro tipo: " + objType.Name);
+                        Response.Write("Es un objeto de otro tipo: " + item.Name);
                     }
                 }
                 Response.Write("");
 
+            }
+        }
+
+        private void eliminarCliente(int id)
+        {
+
+            try
+            {
+                conexion.Open();
+                SqlCommand comando = new SqlCommand("sp_EliminarCliente", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@Id", id);
+                comando.ExecuteNonQuery();
+                conexion.Close();
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.ToString());
+            }
+        }
+
+        private void eliminarMensaje(int id)
+        {
+            try
+            {
+                conexion.Open();
+                SqlCommand comando = new SqlCommand("sp_EliminarMensaje", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@Id", id);
+                comando.ExecuteNonQuery();
+                conexion.Close();
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.ToString());
+            }
+        }
+
+        private void eliminarCuenta(int id)
+        {
+            try
+            {
+                Cuenta.EliminarCuenta(id);
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.ToString());
             }
         }
     }
