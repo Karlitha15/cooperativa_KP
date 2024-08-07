@@ -167,8 +167,28 @@ namespace cooperativa_KP
             if (e.CommandName == "Editar")
             {
                 int id = Convert.ToInt32(e.CommandArgument);
-                // Código para editar la fila con ID = id
-                
+                if (list.Count != 0)
+                {
+
+                    var item = list[0].GetType();
+                    if (item == typeof(Cliente))
+                    {
+
+                    }
+                    else if (item == typeof(Mensaje))
+                    {
+                        eliminarMensaje(id);
+                    }
+                    else if (item == typeof(Cuenta))
+                    {
+                        eliminarCuenta(id);
+                    }
+                    else
+                    {
+                        Response.Write("Es un objeto de otro tipo: " + item.Name);
+                    }
+                }
+
             }
             if (e.CommandName == "Eliminar")
             {
@@ -196,7 +216,6 @@ namespace cooperativa_KP
                         Response.Write("Es un objeto de otro tipo: " + item.Name);
                     }
                 }
-                Response.Write("");
 
             }
         }

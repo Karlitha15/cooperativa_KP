@@ -1,10 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="vista_admin.aspx.cs" Inherits="cooperativa_KP.vista_admin" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div class ="container-fluid">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-4">
-                <h3 class="h3">
-                    Opciones de administración
+                <h3 class="h3">Opciones de administración
                 </h3>
                 <ul class="list-group">
                     <asp:Button ID="Button1" runat="server" Text="Mensajes" CssClass="list-group-item" OnClick="Button1_Click" />
@@ -22,7 +22,7 @@
                         <br />
                         <asp:Label ID="Label2" runat="server" Text="Tipo"></asp:Label>
                         <br />
-                        <asp:DropDownList ID="DropDownList2" runat="server"  CssClass="btn btn-secondary dropdown-toggle">
+                        <asp:DropDownList ID="DropDownList2" runat="server" CssClass="btn btn-secondary dropdown-toggle">
                             <asp:ListItem>Ahorro</asp:ListItem>
                             <asp:ListItem>Corriente</asp:ListItem>
                         </asp:DropDownList>
@@ -32,13 +32,35 @@
                         <asp:TextBox ID="txsaldo" runat="server" CssClass="form-control"></asp:TextBox>
                         <br />
                         <asp:Button ID="Button5" runat="server" Text="Guardar" CssClass="btn btn-success" OnClick="Button5_Click" />
-                        
+
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="h3 card-title">Formulario Cliente</h3>
+                    <div class="card-body">
+                        <asp:Label ID="Label4" runat="server" Text="Nombre Completo:"></asp:Label>
+                        <br />
+                        <asp:TextBox ID="txnombre" runat="server" CssClass="form-control"></asp:TextBox>
+                        <br />
+                        <asp:Label ID="Label5" runat="server" Text="Email:"></asp:Label>
+                        <br />
+                        <asp:TextBox ID="txemail" runat="server" CssClass="form-control"></asp:TextBox>
+                        <br />
+                        <asp:Label ID="Label6" runat="server" Text="Teléfono"></asp:Label>
+                        <br />
+                        <asp:TextBox ID="txtelefono" runat="server" CssClass="form-control"></asp:TextBox>
+                        <br />
+                        <asp:Label ID="Label7" runat="server" Text="Dirección"></asp:Label>
+                        <br />
+                        <asp:TextBox ID="txdireccion" runat="server" CssClass="form-control"></asp:TextBox>
+                        <br />
+                        <asp:Button ID="Button6" runat="server" Text="Guardar" CssClass="btn btn-warning" />
+                        <br />
                     </div>
                 </div>
             </div>
             <div class="col-8">
-                <h3 class="h3">
-                    Detalles
+                <h3 class="h3">Detalles
                 </h3>
                 <asp:GridView ID="tabla" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical" OnRowCommand="tabla_RowCommand">
                     <AlternatingRowStyle BackColor="#CCCCCC" />
@@ -51,12 +73,12 @@
                     <SortedDescendingCellStyle BackColor="#CAC9C9" />
                     <SortedDescendingHeaderStyle BackColor="#383838" />
                     <Columns>
-            <asp:TemplateField HeaderText="Acciones">
-                <ItemTemplate>
-                    <asp:Button ID="btnEditar" runat="server" Text="Editar" CommandName="Editar" CommandArgument='<%# Eval("ID") %>' />
-                    <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Eval("ID") %>' />
-                </ItemTemplate>
-            </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Acciones">
+                            <ItemTemplate>
+                                <asp:Button ID="btnEditar" runat="server" Text="Editar" CommandName="Editar" CommandArgument='<%# Eval("ID") %>' />
+                                <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Eval("ID") %>' />
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </div>
