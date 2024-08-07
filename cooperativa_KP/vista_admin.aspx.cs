@@ -15,6 +15,8 @@ namespace cooperativa_KP
     {
         private SqlConnection conexion = new SqlConnection("Server=localhost;Database=banco;Integrated Security=True;");
         private static List<object> list = new List<object>();
+        private static Cliente climodi = new Cliente();
+        private static Cuenta cuentamodi = new Cuenta();
         protected void Page_Load(object sender, EventArgs e)
         {
             Cliente u = (Cliente)Session["Usuario"];
@@ -30,7 +32,7 @@ namespace cooperativa_KP
                     {
                         listar_mensajes();
                     }
-                    limpiarform();
+                    //limpiarform();
                 }
                 if (DropDownList1.Items.Count == 0)
                 {
@@ -146,12 +148,20 @@ namespace cooperativa_KP
         {
             try
             {
-                Cuenta.CrearCuenta(Convert.ToInt32(DropDownList1.SelectedItem.Value), DropDownList2.SelectedItem.Value, Convert.ToDecimal(txsaldo.Text));
-                limpiarform();
+                if(cuentamodi.ID != 0)
+                {
+                    Cuenta.ActualizarCuenta(cuentamodi.ID, DropDownList2.SelectedValue, Convert.ToDecimal(txsaldo.Text));
+                    listar_cuentas();
+                }
+                else if(climodi == null)
+                {
+                    Cuenta.CrearCuenta(Convert.ToInt32(DropDownList1.SelectedItem.Value), DropDownList2.SelectedItem.Value, Convert.ToDecimal(txsaldo.Text));
+                    limpiarform();
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Response.Write(ex.Message);
             }
         }
 
@@ -161,7 +171,11 @@ namespace cooperativa_KP
             this.DropDownList2.SelectedIndex = 0;
             this.txsaldo.Text = "0";
         }
-
+/// <summary>
+/// Se procesan los botones editar y eliminar
+/// </summary>
+/// <param name="sender"></param>
+/// <param name="e"></param>
         protected void tabla_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "Editar")
@@ -174,6 +188,15 @@ namespace cooperativa_KP
                     if (item == typeof(Cliente))
                     {
 
+                        climodi = getClienteById(id);
+                        if(climodi != null )
+                        {
+                            txnombre.Text = climodi.NombreCompleto;
+                            txemail.Text = climodi.Email;
+                            txdireccion.Text = climodi.Direccion;
+                            txtelefono.Text = climodi.Telefono;
+
+                        }
                     }
                     else if (item == typeof(Mensaje))
                     {
@@ -181,7 +204,13 @@ namespace cooperativa_KP
                     }
                     else if (item == typeof(Cuenta))
                     {
-                        eliminarCuenta(id);
+                        cuentamodi = getCuentaById(id);
+                        if(cuentamodi != null || cuentamodi.ID == 0)
+                        {
+                            DropDownList1.SelectedValue = cuentamodi.ID_Cliente.ToString();
+                            DropDownList2.SelectedValue = cuentamodi.Tipo;
+                            txsaldo.Text = cuentamodi.Saldo.ToString();
+                        }
                     }
                     else
                     {
@@ -265,6 +294,79 @@ namespace cooperativa_KP
             {
                 Response.Write(ex.ToString());
             }
+        }
+
+        private Cliente getClienteById(int id)
+        {
+            try
+            {
+                Cliente c = new Cliente();
+                conexion.Open();
+                SqlCommand comando = new SqlCommand("sp_ListarClientePorId", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@Id", id);
+                var reader = comando.ExecuteReader();
+                if (reader.Read())
+                {
+                    c.Id = reader.GetInt32(0);
+                    c.NombreCompleto = reader.GetString(1);
+                    c.Email = reader.GetString(2);
+                    c.Telefono = reader.GetString(3);
+                    c.Direccion = reader.GetString(4);
+                }
+                conexion.Close();
+                return c;
+            }catch(Exception ex)
+            {
+                Response.Write(ex.ToString());
+            }
+            return null;
+        }
+
+        protected void Button6_Click(object sender, EventArgs e)
+        {
+            if(climodi.Id != 0)
+            {
+                conexion.Open();
+                SqlCommand comando = new SqlCommand("sp_ActualizarCliente", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@Id", climodi.Id);
+                comando.Parameters.AddWithValue("@NombreCompleto", txnombre.Text);
+                comando.Parameters.AddWithValue("@Telefono", txtelefono.Text);
+                comando.Parameters.AddWithValue("@Direccion", txdireccion.Text);
+                comando.Parameters.AddWithValue("@Email", txemail.Text);
+                comando.ExecuteNonQuery();
+                conexion.Close();
+                listar_clientes();
+
+            }
+        }
+
+        private Cuenta getCuentaById(int id)
+        {
+            try
+            {
+                Cuenta cuenta = new Cuenta();
+                conexion.Open();
+                SqlCommand comando = new SqlCommand("sp_LeerCuenta", conexion);
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@ID", id);
+                SqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    cuenta.ID = id;
+                    cuenta.ID_Cliente = reader.GetInt32(1);
+                    cuenta.Tipo = reader.GetString(2);
+                    cuenta.Saldo = reader.GetDecimal(3);
+                }
+                conexion.Close();
+                return cuenta;
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.Message);
+            }
+            return null;
         }
     }
 }

@@ -14,7 +14,7 @@
                 </ul>
                 <br />
                 <div class="card">
-                    <h3 class="h3 card-title">Formulario de nueva cuenta</h3>
+                    <h3 class="h3 card-title">Formulario de cuenta</h3>
                     <div class="card-body">
                         <asp:Label ID="Label1" runat="server" Text="Cliente"></asp:Label>
                         <br />
@@ -54,7 +54,7 @@
                         <br />
                         <asp:TextBox ID="txdireccion" runat="server" CssClass="form-control"></asp:TextBox>
                         <br />
-                        <asp:Button ID="Button6" runat="server" Text="Guardar" CssClass="btn btn-warning" />
+                        <asp:Button ID="Button6" runat="server" Text="Guardar" CssClass="btn btn-warning" OnClick="Button6_Click" />
                         <br />
                     </div>
                 </div>

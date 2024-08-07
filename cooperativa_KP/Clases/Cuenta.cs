@@ -41,7 +41,7 @@ namespace cooperativa_KP.Clases
                 SqlDataReader reader = comando.ExecuteReader();
                 while (reader.Read())
                 {
-                    cuenta.ID = reader.GetInt32(0);
+                    cuenta.ID = id;
                     cuenta.ID_Cliente = reader.GetInt32(1);
                     cuenta.Tipo = reader.GetString(2);
                     cuenta.Saldo = reader.GetDecimal(3);
