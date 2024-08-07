@@ -167,9 +167,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="Clases\Cliente.cs" />
-    <Compile Include="Clases\ClienteCredenciales.cs" />
-    <Compile Include="Clases\Mensaje.cs" />
+    <Compile Include="Clases\Cliente.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Clases\ClienteCredenciales.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Clases\Cuenta.cs" />
+    <Compile Include="Clases\Mensaje.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Inicio_de_Sesion.aspx.cs">
       <DependentUpon>Inicio_de_Sesion.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

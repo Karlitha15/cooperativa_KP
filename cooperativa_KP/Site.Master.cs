@@ -35,5 +35,11 @@ namespace cooperativa_KP
                 
             }
         }
+
+        protected void salir_Click(object sender, EventArgs e)
+        {
+            Session["Usuario"] = null;
+            Response.Redirect("Default.aspx");
+        }
     }
 }

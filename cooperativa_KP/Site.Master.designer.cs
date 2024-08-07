@@ -24,6 +24,15 @@ namespace cooperativa_KP
         protected global::System.Web.UI.WebControls.LinkButton iniciosesion;
 
         /// <summary>
+        /// Control salir.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton salir;
+
+        /// <summary>
         /// Control MainContent.
         /// </summary>
         /// <remarks>

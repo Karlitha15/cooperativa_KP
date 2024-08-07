@@ -51,7 +51,8 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/">INICIO</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Regístrate">REGÍSTRATE</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Contáctanos">CONTÁCTANOS</a></li>
-                        <asp:LinkButton ID="iniciosesion" runat="server" CssClass="nav-item" OnClick="iniciosesion_Click">INGRESAR</asp:LinkButton>
+                        <li class="nav-item"><asp:LinkButton ID="iniciosesion" runat="server"  OnClick="iniciosesion_Click">INGRESAR</asp:LinkButton></li>
+                        <li class="nav-item"><asp:LinkButton ID="salir" runat="server" OnClick="salir_Click">Salir</asp:LinkButton></li> 
                     </ul>
                 </div>
             </div>

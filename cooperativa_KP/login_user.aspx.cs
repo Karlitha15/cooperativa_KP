@@ -40,7 +40,7 @@ namespace cooperativa_KP
                     if (reader.Read())
                     {
 
-                        pass = reader.GetString(1);
+                        pass = reader.GetString(2);
                         c.Id = reader.GetInt32(0);
                     }
                     reader.Close();
@@ -62,11 +62,11 @@ namespace cooperativa_KP
                             c.Telefono = reader2.GetString(3);
                             c.Direccion = reader2.GetString(4);
                         }
-                        conexion.Close();
+                        
                         Response.Redirect("vista_user.aspx"); 
                     }
-                    
 
+                    conexion.Close();
 
                 }
                 
